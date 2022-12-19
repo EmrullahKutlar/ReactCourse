@@ -1,54 +1,77 @@
 //sfc
 import { useState } from "react";
+import User from "./User";
 
 function App() {
-  const name = "Emrullah";
-  const age = 30;
-  const email = "emrullah.ktlr@gmail.com";
-  const name2 = <h1>Emrullah</h1>;
-  const age2 = <h2>30</h2>;
-  const email2 = <h3> emrullah.ktlr@gmail.com </h3>;
-  const user = (
-    <div>
-      {name2}
-      {age2}
-      {email2}
-    </div>
-  );
+  const age = 15;
+  const isGreen = true;
+
+  // if(age>18){
+  //   return <h1>Over Age</h1>
+  // }else{
+  //   return <h1>Under Age</h1>
+  // }
+  const names = ["John", "Bob", "Mary"];
+  const users=[
+    {name:"John",age:20},
+    {name:"Bob",age:25},
+    {name:"Mary",age:30},
+    {name:"Emrullah",age:23}
+  ]
+
+  const planets=[
+    {name:"Mars", isGasPlanet:false},
+    {name:"Jupiter", isGasPlanet:true},
+    {name:"Saturn", isGasPlanet:true},
+    {name:"Earth", isGasPlanet:false},
+    {name:"Venus", isGasPlanet:false},
+    {name:"Mercury", isGasPlanet:false},
+    {name:"Uranus", isGasPlanet:true},
+    {name:"Neptune", isGasPlanet:true},
+    {name:"Pluto", isGasPlanet:false}
+  ]
 
   return (
     <div className="App">
-      <h1>Hello {name}</h1>
-      <h2>Age: {age}</h2>
-      <h3>Email: {email}</h3>
-      <hr />
-      {user}
-      <hr />
-      <h1>Component</h1>
-      <User />
-      <User2  name='Hasan' age={25} email='hasan@gmail.com'/>
+      {age >= 18 ? <h1>Over Age</h1> : <h1>Under Age</h1>}
+      <h1 style={{ color: isGreen ? "green" : "red" }}> THIS HAS COLOR </h1>
 
+      {/* map ile yazdırma işlemi */}
+
+      {names.map((name, index) => {
+        return <h1 key={index}> {index+1} -{name}</h1>;
+      })}
+      <hr />
+      {users.map((user, index) => {
+        return <h1 key={index}> {index+1} -{user.name} , {user.age}</h1>;
+      })}
+      <hr />
+      {users.map((user, index) => {
+        return <User key={index} number={index+1} name={user.name} age={user.age}  />;
+      })}
+
+      {/* Exercise */}
+      <hr />
+      {/* planets dizisinin her objesini dolaşıp isGasPlanet == true olanları map ile yazdırma */}
+      {planets.filter(planet=>planet.isGasPlanet).map((planet,index)=>{
+        return <h1 key={index}>{index+1} - {planet.name} is a gas planet</h1>
+        })
+      }
+      {/* yada */}
+      <hr />
+      {planets.map((planet,index)=>{
+       return planet.isGasPlanet && <h1 key={index}>{index} - {planet.name} is a gas planet</h1>
+       } )
+      }
     </div>
   );
 }
 
-const User = () => {
-  return (
-    <div>
-     <h1>Hello Emrullah</h1>
-      <h2>Age: 23</h2>
-      <h3>Email: emrullah.ktlr@gmail.com</h3>
-    </div>
-  );
-};
-const User2 = (props) => {
-  return (
-    <div>
-     <h1>Hello {props.name}</h1>
-      <h2>Age: {props.age}</h2>
-      <h3>Email: {props.email}</h3>
-    </div>
-  );
-};
 
+// const User = (props) => {
+//   return ( 
+//     <h1>{props.index} - {props.name},{props.age}</h1>
+//    );
+// }
+ 
 export default App;
