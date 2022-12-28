@@ -1,4 +1,10 @@
 import { Person, Country } from "./Person"
+import { BrowserRouter as Router, Route, Routes,Link } from "react-router-dom"
+import Home from "./Home"
+import Login from "./Login"
+import Contact from "./Contact"
+import { Provider } from "react-redux"
+import { store } from "./store"
 
 function App() {
 
@@ -8,20 +14,22 @@ function App() {
 
   return (
     <div className="App">
-      <div className="contianer">
-        <div className="row">
-          <Person
-            name='Emrullah'
-            email='asd@mail.com'
-            age={23}
-            isMarried={false}
-            friends={["ali", "veli", "hasan", "hüseyin"]}
-            country={Country.Turkey}
-
-          />
-        </div>
-      </div>
-
+      <Provider store={store}>
+        <Router>
+          <Link to={'/'}>Home</Link>
+          <Link to={'/login'}>Login</Link>
+          <Link to={'/contact'}>Contact</Link>
+          <div className="contianer">
+            <div className="row">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </div>
+          </div>
+        </Router>
+      </Provider>
     </div>
   )
 }
